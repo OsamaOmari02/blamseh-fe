@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+}
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  max-width: min(75%, 32rem);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  background: var(--color-bubble-theirs);
+  box-shadow: 0 1px 0.5px rgb(11 20 26 / 13%);
+
+  &--mine {
+    margin-left: auto; // pushes my messages to the right
+    background: var(--color-bubble-mine);
+  }
+
+  &__text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere; // long words wrap instead of overflowing
+  }
+
+  &__meta {
+    align-self: flex-end;
+    display: flex;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+  }
+
+  &__ticks--read {
+    color: var(--color-read);
+  }
+}

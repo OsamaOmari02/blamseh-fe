@@ -1,5 +1,5 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { APP_ROUTES } from '@core/constants/app-routes';
 import { SearchBar } from '@shared/components/search-bar/search-bar';
 import { ConversationTile } from '../../components/conversation-tile/conversation-tile';
@@ -10,7 +10,7 @@ import { InboxService } from '../../services/inbox-service';
 
 @Component({
   selector: 'app-inbox-page',
-  imports: [SearchBar, InboxFilterBar, ConversationTile],
+  imports: [SearchBar, InboxFilterBar, ConversationTile, RouterOutlet],
   templateUrl: './inbox-page.html',
   styleUrl: './inbox-page.scss',
 })
@@ -20,6 +20,8 @@ export class InboxPage implements OnInit {
 
   protected readonly searchQuery = signal('');
   protected readonly activeFilter = signal(InboxFilter.All);
+
+  protected readonly chatOpen = signal(false);
 
   ngOnInit() {
     this.service.load();
@@ -35,7 +37,7 @@ export class InboxPage implements OnInit {
   });
 
   protected openChat(id: string) {
-    this.router.navigate(['/', APP_ROUTES.chat, id]);
+    this.router.navigate(['/', APP_ROUTES.inbox, id]);
   }
 
   private matchesFilter(conversation: Conversation, filter: InboxFilter): boolean {

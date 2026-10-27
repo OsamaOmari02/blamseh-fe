@@ -1,1 +1,17 @@
-<p>chat-page works!</p>
+@let thread = service.thread();
+
+@if (thread) {
+  <app-chat-header [name]="thread.contactName" (back)="goBack()" />
+
+  <div class="chat__messages" #scroller>
+    @for (message of thread.messages; track message.id) {
+      <app-message-bubble [message]="message" />
+    } @empty {
+      <p class="chat__hint">No messages yet. Say hi!</p>
+    }
+  </div>
+
+  <app-chat-input-bar (sent)="sendMessage($event)" />
+} @else {
+  <p class="chat__hint">Conversation not found</p>
+}

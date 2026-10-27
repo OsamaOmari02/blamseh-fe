@@ -1,7 +1,6 @@
 import { Service, signal } from '@angular/core';
+import { minutesAgo } from '@shared/minutes-ago-util';
 import { Conversation } from '../models/conversation-model';
-
-const minutesAgo = (m: number) => new Date(Date.now() - m * 60_000);
 
 const MOCK_CONVERSATIONS: Conversation[] = [
   {
@@ -40,38 +39,6 @@ const MOCK_CONVERSATIONS: Conversation[] = [
     id: '5',
     contactName: 'Hala Mansour',
     lastMessage: 'Do you deliver to Irbid?',
-    lastMessageAt: minutesAgo(60 * 50),
-    unreadCount: 1,
-    assignedToMe: false,
-  },
-  {
-    id: '6',
-    contactName: 'Yazan Ahmad',
-    lastMessage: 'Please call me',
-    lastMessageAt: minutesAgo(60 * 22),
-    unreadCount: 4,
-    assignedToMe: false,
-  },
-  {
-    id: '7',
-    contactName: 'Khaled Mansour',
-    lastMessage: 'Do you deliver to Amman?',
-    lastMessageAt: minutesAgo(60 * 50),
-    unreadCount: 0,
-    assignedToMe: false,
-  },
-  {
-    id: '8',
-    contactName: 'Omar Odeh',
-    lastMessage: 'Please send the invoice',
-    lastMessageAt: minutesAgo(60 * 26),
-    unreadCount: 0,
-    assignedToMe: false,
-  },
-  {
-    id: '9',
-    contactName: 'Tala Samer',
-    lastMessage: 'Can i get more info?',
     lastMessageAt: minutesAgo(60 * 50),
     unreadCount: 1,
     assignedToMe: false,

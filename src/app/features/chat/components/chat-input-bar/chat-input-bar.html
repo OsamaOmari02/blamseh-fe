@@ -1,0 +1,23 @@
+<div class="input-bar">
+  <input
+    class="input-bar__field"
+    type="text"
+    autocomplete="off"
+    aria-label="Type a message"
+    placeholder="Type a message"
+    [value]="draft()"
+    (input)="updateDraft($event)"
+    (keydown.enter)="submit()"
+  />
+  <button
+    type="button"
+    class="input-bar__send"
+    aria-label="Send message"
+    [disabled]="!draft().trim()"
+    (click)="submit()"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+    </svg>
+  </button>
+</div>

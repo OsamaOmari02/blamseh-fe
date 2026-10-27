@@ -20,8 +20,6 @@ export class LoginForm {
 
   onSubmit() {
     if (this.form.invalid) {
-      console.log(this.error);
-
       this.form.markAllAsTouched();
       return;
     }

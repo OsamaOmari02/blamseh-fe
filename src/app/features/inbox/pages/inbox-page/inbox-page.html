@@ -1,15 +1,28 @@
-<div class="inbox__search">
-  <app-search-bar placeholder="Search conversations" [(query)]="searchQuery" />
+<div class="inbox">
+  <section class="inbox__list">
+    <div class="inbox__search">
+      <app-search-bar placeholder="Search conversations" [(query)]="searchQuery" />
+    </div>
+
+    <app-inbox-filter-bar [(active)]="activeFilter" />
+
+    @if (service.loading()) {
+      <p class="inbox__status">Loading...</p>
+    } @else {
+      @for (conversation of visibleConversations(); track conversation.id) {
+        <app-conversation-tile [conversation]="conversation" (selected)="openChat($event)" />
+      } @empty {
+        <p class="inbox__status">No conversations found</p>
+      }
+    }
+  </section>
+
+  <section class="inbox__detail">
+    @if (!chatOpen()) {
+      <div class="inbox__empty">
+        <p>Select a conversation to start chatting</p>
+      </div>
+    }
+    <router-outlet (activate)="chatOpen.set(true)" (deactivate)="chatOpen.set(false)" />
+  </section>
 </div>
-
-<app-inbox-filter-bar [(active)]="activeFilter" />
-
-@if (service.loading()) {
-  <p class="inbox__status">Loading...</p>
-} @else {
-  @for (conversation of visibleConversations(); track conversation.id) {
-    <app-conversation-tile [conversation]="conversation" (selected)="openChat($event)" />
-  } @empty {
-    <p class="inbox__status">No conversations found</p>
-  }
-}

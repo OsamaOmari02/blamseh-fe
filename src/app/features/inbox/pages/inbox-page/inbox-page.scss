@@ -1,17 +1,64 @@
 :host {
-  display: block; // component hosts are inline by default, which breaks sticky
+  display: block;
+  height: 100%;
 }
 
-.inbox__search {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding: 0.5rem 1rem;
-  background: var(--color-surface);
+.inbox {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  height: 100%;
+
+  &__list {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto; // the list scrolls on its own
+  }
+
+  &__search {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.5rem 1rem;
+    background: var(--color-surface);
+  }
+
+  &__status {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+
+  // Mobile: this wrapper creates no box, so the fixed chat overlay still works
+  &__detail {
+    display: contents;
+  }
+
+  &__empty {
+    display: none;
+  }
 }
 
-.inbox__status {
-  padding: 2rem 1rem;
-  text-align: center;
-  color: var(--color-text-muted);
+@media (min-width: 900px) {
+  .inbox {
+    grid-template-columns: 24rem minmax(0, 1fr);
+
+    &__list {
+      border-right: 1px solid var(--color-border);
+    }
+
+    &__detail {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: var(--color-chat-bg);
+    }
+
+    &__empty {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+    }
+  }
 }

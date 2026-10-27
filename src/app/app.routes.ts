@@ -13,6 +13,14 @@ export const routes: Routes = [
         title: 'Inbox',
         loadComponent: () =>
           import('./features/inbox/pages/inbox-page/inbox-page').then((m) => m.InboxPage),
+        children: [
+          {
+            path: ':id',
+            title: 'Chat',
+            loadComponent: () =>
+              import('./features/chat/pages/chat-page/chat-page').then((m) => m.ChatPage),
+          },
+        ],
       },
       {
         path: APP_ROUTES.agents,
@@ -38,13 +46,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/auth/pages/login-page/login-page').then((m) => m.LoginPage),
   },
-  {
-    path: `${APP_ROUTES.chat}/:id`,
-    title: 'Chat',
-    loadComponent: () =>
-      import('./features/chat/pages/chat-page/chat-page').then((m) => m.ChatPage),
-  },
-
   {
     path: '**',
     title: 'Not Found',

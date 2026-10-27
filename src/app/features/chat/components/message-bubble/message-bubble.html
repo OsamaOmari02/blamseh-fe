@@ -1,0 +1,9 @@
+<div class="bubble" [class.bubble--mine]="message().fromMe">
+  <span class="bubble__text">{{ message().text }}</span>
+  <span class="bubble__meta">
+    {{ message().sentAt | date: 'shortTime' }}
+    @if (message().fromMe) {
+      <span class="bubble__ticks" [class.bubble__ticks--read]="isRead()">{{ ticks() }}</span>
+    }
+  </span>
+</div>
