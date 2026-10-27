@@ -11,7 +11,8 @@ export const routes: Routes = [
       {
         path: APP_ROUTES.inbox,
         title: 'Inbox',
-        loadComponent: () => import('./features/inbox/pages/inbox/inbox').then((m) => m.Inbox),
+        loadComponent: () =>
+          import('./features/inbox/pages/inbox-page/inbox-page').then((m) => m.InboxPage),
       },
       {
         path: APP_ROUTES.agents,
@@ -34,12 +35,14 @@ export const routes: Routes = [
   {
     path: APP_ROUTES.login,
     title: 'Login',
-    loadComponent: () => import('./features/auth/pages/login/login').then((m) => m.Login),
+    loadComponent: () =>
+      import('./features/auth/pages/login-page/login-page').then((m) => m.LoginPage),
   },
   {
     path: `${APP_ROUTES.chat}/:id`,
     title: 'Chat',
-    loadComponent: () => import('./features/chat/pages/chat/chat').then((m) => m.ChatPage),
+    loadComponent: () =>
+      import('./features/chat/pages/chat-page/chat-page').then((m) => m.ChatPage),
   },
 
   {

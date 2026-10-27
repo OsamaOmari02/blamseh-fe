@@ -1,0 +1,17 @@
+:host {
+  display: block; // component hosts are inline by default, which breaks sticky
+}
+
+.inbox__search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.5rem 1rem;
+  background: var(--color-surface);
+}
+
+.inbox__status {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}

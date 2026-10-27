@@ -1,14 +1,47 @@
+:host {
+  display: block;
+  height: 100dvh;
+}
+
 .shell {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh; // full screen height, correct on mobile browsers
-  max-width: 30rem; // phone-like column on desktop
-  margin: 0 auto;
+  display: grid;
+  height: 100%;
   background: var(--color-surface);
 
+  // Mobile: top bar, content, bottom nav
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: var(--topbar-height) minmax(0, 1fr) var(--bottomnav-height);
+  grid-template-areas:
+    'top'
+    'content'
+    'nav';
+
+  &__top-bar {
+    display: block;
+    grid-area: top;
+    min-width: 0;
+  }
+
   &__content {
-    flex: 1; // like Expanded
-    overflow-y: auto; // THIS is the scroll container for pages
-    min-height: 0; // required so flex children can actually scroll
+    grid-area: content;
+    overflow-y: auto;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  &__nav {
+    display: block;
+    grid-area: nav;
+  }
+}
+
+// Desktop: nav becomes a left rail
+@media (min-width: 900px) {
+  .shell {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    grid-template-rows: var(--topbar-height) minmax(0, 1fr);
+    grid-template-areas:
+      'nav top'
+      'nav content';
   }
 }

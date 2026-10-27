@@ -5,11 +5,11 @@ import { LoginForm } from '../../components/login-form/login-form';
 
 @Component({
   imports: [LoginForm],
-  selector: 'app-login',
-  styleUrl: './login.scss',
-  templateUrl: './login.html',
+  selector: 'app-login-page',
+  styleUrl: './login-page.scss',
+  templateUrl: './login-page.html',
 })
-export class Login {
+export class LoginPage {
   private router = inject(Router);
 
   loading = signal(false);

@@ -1,17 +1,18 @@
 :root {
   --color-primary: #25d366;
-  --color-primary-dark: #128c7e;
+  --color-primary-dark: #008069;
   --color-bg: #f0f2f5;
   --color-surface: #ffffff;
   --color-text: #111b21;
   --color-text-muted: #667781;
   --color-border: #e9edef;
-  --color-error: #dc143c;
+  --color-chip-bg: #f0f2f5;
+  --color-chip-active-bg: #d9fdd3;
+  --color-error: #d93025;
 
   --topbar-height: 3.5rem;
   --bottomnav-height: 4rem;
 }
-
 *,
 *::before,
 *::after {

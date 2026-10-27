@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { Avatar } from '@shared/components/avatar/avatar';
 import { TimeAgoPipe } from '@shared/pipes/time-ago-pipe';
-import { Conversation } from '../../models/conversation.model';
+import { Conversation } from '../../models/conversation-model';
 
 @Component({
   selector: 'app-conversation-tile',
