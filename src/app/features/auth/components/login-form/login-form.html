@@ -1,0 +1,24 @@
+<form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="email" formControlName="email" id="email" placeholder="you@company.com" />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <span class="field__error">Enter a valid email</span>
+    }
+  </div>
+
+  <div class="field">
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" id="password" placeholder="••••••••" />
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+      <span class="field__error">Password must be at least 6 characters</span>
+    }
+  </div>
+
+  @if (error()) {
+    <p class="login-form__error">{{ error() }}</p>
+  }
+  <button type="submit" class="login-form__button" [disabled]="loading()">
+    {{ loading() ? 'Signing in...' : 'Sign in' }}
+  </button>
+</form>

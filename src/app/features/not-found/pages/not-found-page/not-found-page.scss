@@ -1,0 +1,55 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.not-found__code {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #6366f1;
+}
+
+.not-found__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.not-found__description {
+  max-width: 400px;
+  margin: 0;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.not-found__link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #6366f1;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.not-found__link:hover {
+  background-color: #4f46e5;
+}
+
+.not-found__link:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 4px;
+}

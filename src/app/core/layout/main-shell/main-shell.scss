@@ -1,0 +1,14 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh; // full screen height, correct on mobile browsers
+  max-width: 30rem; // phone-like column on desktop
+  margin: 0 auto;
+  background: var(--color-surface);
+
+  &__content {
+    flex: 1; // like Expanded
+    overflow-y: auto; // THIS is the scroll container for pages
+    min-height: 0; // required so flex children can actually scroll
+  }
+}

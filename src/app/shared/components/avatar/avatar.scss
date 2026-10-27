@@ -1,0 +1,10 @@
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  flex-shrink: 0; // stops the circle from squashing in a row
+}

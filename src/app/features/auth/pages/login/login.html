@@ -1,0 +1,5 @@
+<div class="login">
+  <h1 class="login__title">Welcome back</h1>
+  <p class="login__subtitle">Sign in to continue</p>
+  <app-login-form [loading]="loading()" [error]="error()" (submitted)="onLogin($event)" />
+</div>

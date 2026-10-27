@@ -1,0 +1,19 @@
+<button class="tile" type="button" (click)="selected.emit(conversation().id)">
+  <app-avatar [name]="conversation().contactName" />
+
+  <div class="tile__body">
+    <div class="tile__row">
+      <span class="tile__name">{{ conversation().contactName }}</span>
+      <span class="tile__time" [class.tile__time--unread]="conversation().unreadCount > 0">
+        {{ conversation().lastMessageAt | timeAgo }}
+      </span>
+    </div>
+
+    <div class="tile__row">
+      <span class="tile__message">{{ conversation().lastMessage }}</span>
+      @if (conversation().unreadCount > 0) {
+        <span class="tile__badge">{{ conversation().unreadCount }}</span>
+      }
+    </div>
+  </div>
+</button>

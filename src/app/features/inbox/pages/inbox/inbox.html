@@ -1,0 +1,9 @@
+@if (service.loading()) {
+  <p class="inbox__status">Loading...</p>
+} @else {
+  @for (c of service.conversations(); track c.id) {
+    <app-conversation-tile [conversation]="c" (selected)="openChat($event)" />
+  } @empty {
+    <p class="inbox__status">No conversations yet</p>
+  }
+}
