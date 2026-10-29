@@ -1,0 +1,81 @@
+.agent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-hover);
+  }
+
+  &__avatar {
+    position: relative; // anchor for the status dot
+    flex-shrink: 0;
+  }
+
+  &__dot {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 2px solid var(--color-surface);
+    border-radius: 50%;
+    background: var(--color-offline);
+
+    &[data-status='online'] {
+      background: var(--color-primary);
+    }
+    &[data-status='away'] {
+      background: var(--color-away);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-weight: 600;
+  }
+
+  &__role {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.15rem;
+    font-size: 0.8rem;
+  }
+
+  &__status {
+    font-weight: 600;
+    color: var(--color-offline);
+
+    &[data-status='online'] {
+      color: var(--color-primary-dark);
+    }
+    &[data-status='away'] {
+      color: var(--color-away);
+    }
+  }
+
+  &__count {
+    color: var(--color-text-muted);
+  }
+}

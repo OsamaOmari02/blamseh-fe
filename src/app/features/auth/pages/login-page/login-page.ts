@@ -1,28 +1,32 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { APP_ROUTES } from '@core/constants/app-routes';
+import { AuthService } from '@core/services/auth-service';
 import { LoginForm } from '../../components/login-form/login-form';
+import { LoginCredentials } from '../../models/login-credentials-model';
 
 @Component({
-  imports: [LoginForm],
   selector: 'app-login-page',
-  styleUrl: './login-page.scss',
+  imports: [LoginForm],
   templateUrl: './login-page.html',
+  styleUrl: './login-page.scss',
 })
 export class LoginPage {
-  private router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  loading = signal(false);
-  error = signal<string | null>(null);
+  protected readonly loading = signal(false);
+  protected readonly error = signal<string | null>(null);
 
-  onLogin(credentials: { email: string; password: string }) {
+  protected async login(credentials: LoginCredentials) {
     this.loading.set(true);
     this.error.set(null);
+
     try {
-      this.router.navigate([APP_ROUTES.inbox]);
-    } catch (error) {
-      console.log(error);
-      this.error.set('Invalid email or password');
+      await this.authService.login(credentials.email, credentials.password);
+      await this.router.navigate(['/', APP_ROUTES.inbox]);
+    } catch (e) {
+      this.error.set(e instanceof Error ? e.message : 'Something went wrong');
     } finally {
       this.loading.set(false);
     }

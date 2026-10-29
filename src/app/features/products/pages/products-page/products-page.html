@@ -1,1 +1,15 @@
-<p>products-page works!</p>
+<div class="products__search">
+  <app-search-bar placeholder="Search products" [(query)]="searchQuery" />
+</div>
+
+@if (productsService.loading()) {
+  <p class="products__status">Loading...</p>
+} @else {
+  <div class="products__grid">
+    @for (product of visibleProducts(); track product.id) {
+      <app-product-card [product]="product" (selected)="openProduct($event)" />
+    } @empty {
+      <p class="products__status">No products found</p>
+    }
+  </div>
+}

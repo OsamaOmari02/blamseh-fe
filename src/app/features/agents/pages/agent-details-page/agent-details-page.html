@@ -1,0 +1,30 @@
+<app-page-header [title]="agent()?.name ?? 'Agent'" (back)="goBack()" />
+
+<main class="detail">
+  @if (agentsService.loading()) {
+    <p class="detail__status">Loading...</p>
+  } @else {
+    @let current = agent();
+
+    @if (current) {
+      <section class="detail__hero">
+        <app-avatar [name]="current.name" size="5rem" />
+        <h2 class="detail__name">{{ current.name }}</h2>
+        <span class="detail__chip" [attr.data-status]="current.status">{{ statusLabel() }}</span>
+      </section>
+
+      <dl class="detail__list">
+        <div class="detail__row">
+          <dt>Role</dt>
+          <dd>{{ current.role }}</dd>
+        </div>
+        <div class="detail__row">
+          <dt>Open conversations</dt>
+          <dd>{{ current.openConversations }}</dd>
+        </div>
+      </dl>
+    } @else {
+      <p class="detail__status">Agent not found</p>
+    }
+  }
+</main>

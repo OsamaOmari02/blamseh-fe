@@ -1,4 +1,9 @@
-<button class="tile" type="button" (click)="selected.emit(conversation().id)">
+<button
+  class="tile"
+  type="button"
+  [class.tile--active]="active()"
+  (click)="selected.emit(conversation().id)"
+>
   <app-avatar [name]="conversation().contactName" />
 
   <div class="tile__body">

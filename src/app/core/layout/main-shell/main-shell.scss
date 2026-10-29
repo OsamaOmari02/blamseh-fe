@@ -33,6 +33,25 @@
     display: block;
     grid-area: nav;
   }
+
+  &__logout {
+    display: flex;
+    padding: 0.4rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      background: rgb(255 255 255 / 15%);
+    }
+
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+      fill: white;
+    }
+  }
 }
 
 // Desktop: nav becomes a left rail

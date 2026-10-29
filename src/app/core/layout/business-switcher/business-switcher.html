@@ -1,0 +1,36 @@
+<div class="switcher">
+  <button
+    type="button"
+    class="switcher__trigger"
+    aria-haspopup="menu"
+    [attr.aria-expanded]="open()"
+    (click)="toggle()"
+  >
+    <span class="switcher__name">{{ currentBusinessService.selected().name }}</span>
+    <svg class="switcher__chevron" [class.is-open]="open()" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 10l5 5 5-5z" />
+    </svg>
+  </button>
+
+  @if (open()) {
+    <ul class="switcher__menu" role="menu" aria-label="Choose a business">
+      @for (business of currentBusinessService.businesses; track business.id) {
+        <li role="none">
+          <button
+            type="button"
+            role="menuitemradio"
+            class="switcher__option"
+            [class.is-selected]="business.id === currentBusinessService.selectedId()"
+            [attr.aria-checked]="business.id === currentBusinessService.selectedId()"
+            (click)="choose(business)"
+          >
+            <span>{{ business.name }}</span>
+            @if (business.id === currentBusinessService.selectedId()) {
+              <span aria-hidden="true">✓</span>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

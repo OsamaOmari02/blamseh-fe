@@ -1,0 +1,16 @@
+<button type="button" class="agent" (click)="selected.emit(agent().id)">
+  <div class="agent__avatar">
+    <app-avatar [name]="agent().name" />
+    <span class="agent__dot" [attr.data-status]="agent().status" aria-hidden="true"></span>
+  </div>
+
+  <div class="agent__body">
+    <span class="agent__name">{{ agent().name }}</span>
+    <span class="agent__role">{{ agent().role }}</span>
+  </div>
+
+  <div class="agent__meta">
+    <span class="agent__status" [attr.data-status]="agent().status">{{ statusLabel() }}</span>
+    <span class="agent__count">{{ agent().openConversations }} open</span>
+  </div>
+</button>

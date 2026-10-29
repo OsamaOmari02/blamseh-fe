@@ -1,23 +1,39 @@
-<form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="login-form" [formGroup]="form" (ngSubmit)="submit()">
+  <h1 class="login-form__title">Sign in</h1>
+  <p class="login-form__subtitle">Use your Blamseh account to continue</p>
+
   <div class="field">
     <label for="email">Email</label>
-    <input type="email" formControlName="email" id="email" placeholder="you@company.com" />
+    <input
+      id="email"
+      type="email"
+      autocomplete="email"
+      placeholder="you@company.com"
+      formControlName="email"
+    />
     @if (form.controls.email.touched && form.controls.email.invalid) {
-      <span class="field__error">Enter a valid email</span>
+      <span class="field__error" role="alert">Enter a valid email</span>
     }
   </div>
 
   <div class="field">
     <label for="password">Password</label>
-    <input type="password" formControlName="password" id="password" placeholder="••••••••" />
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="At least 6 characters"
+      formControlName="password"
+    />
     @if (form.controls.password.touched && form.controls.password.invalid) {
-      <span class="field__error">Password must be at least 6 characters</span>
+      <span class="field__error" role="alert">Password must be at least 6 characters</span>
     }
   </div>
 
   @if (error()) {
-    <p class="login-form__error">{{ error() }}</p>
+    <p class="login-form__error" role="alert">{{ error() }}</p>
   }
+
   <button type="submit" class="login-form__button" [disabled]="loading()">
     {{ loading() ? 'Signing in...' : 'Sign in' }}
   </button>

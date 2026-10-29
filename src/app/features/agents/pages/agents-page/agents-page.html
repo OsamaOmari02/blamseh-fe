@@ -1,1 +1,15 @@
-<p>agents-page works!</p>
+<div class="agents__search">
+  <app-search-bar placeholder="Search agents" [(query)]="searchQuery" />
+</div>
+
+@if (agentsService.loading()) {
+  <p class="agents__status">Loading...</p>
+} @else {
+  <p class="agents__summary">{{ onlineCount() }} of {{ agentsService.agents().length }} online</p>
+
+  @for (agent of visibleAgents(); track agent.id) {
+    <app-agent-card [agent]="agent" (selected)="openAgent($event)" />
+  } @empty {
+    <p class="agents__status">No agents found</p>
+  }
+}

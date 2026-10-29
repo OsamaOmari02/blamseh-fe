@@ -1,0 +1,10 @@
+<button type="button" class="product" (click)="selected.emit(product().id)">
+  <div class="product__image" aria-hidden="true">{{ initial() }}</div>
+
+  <div class="product__body">
+    <span class="product__category">{{ product().category }}</span>
+    <span class="product__name">{{ product().name }}</span>
+    <span class="product__price">{{ product().price | currency }}</span>
+    <span class="product__stock" [attr.data-level]="stockLevel()">{{ stockLabel() }}</span>
+  </div>
+</button>

@@ -1,10 +1,32 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '@core/guards/auth-guard';
+import { guestGuard } from '@core/guards/guest-guard';
 import { APP_ROUTES } from './core/constants/app-routes';
 
 export const routes: Routes = [
+  // Full-screen pages WITHOUT the shell
+  {
+    path: `${APP_ROUTES.agents}/:id`,
+    title: 'Agent',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/agents/pages/agent-details-page/agent-details-page').then(
+        (m) => m.AgentDetailsPage,
+      ),
+  },
+  {
+    path: `${APP_ROUTES.products}/:id`,
+    title: 'Product',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/products/pages/product-details-page/product-details-page').then(
+        (m) => m.ProductDetailsPage,
+      ),
+  },
   // Pages WITH the shell (top bar + bottom nav)
   {
     path: '',
+    canActivate: [authGuard],
     loadComponent: () => import('./core/layout/main-shell/main-shell').then((m) => m.MainShell),
     children: [
       { path: '', pathMatch: 'full', redirectTo: APP_ROUTES.inbox },
@@ -43,9 +65,11 @@ export const routes: Routes = [
   {
     path: APP_ROUTES.login,
     title: 'Login',
+    canActivate: [guestGuard],
     loadComponent: () =>
       import('./features/auth/pages/login-page/login-page').then((m) => m.LoginPage),
   },
+
   {
     path: '**',
     title: 'Not Found',

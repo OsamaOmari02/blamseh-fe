@@ -1,11 +1,12 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { APP_ROUTES } from '@core/constants/app-routes';
+import { CurrentBusinessService } from '@core/services/current-business-service';
 import { SearchBar } from '@shared/components/search-bar/search-bar';
+import { Conversation } from '../../../../shared/models/conversation-model';
 import { ConversationTile } from '../../components/conversation-tile/conversation-tile';
 import { InboxFilterBar } from '../../components/inbox-filter-bar/inbox-filter-bar';
 import { InboxFilter } from '../../enums/inbox-filter-enum';
-import { Conversation } from '../../models/conversation-model';
 import { InboxService } from '../../services/inbox-service';
 
 @Component({
@@ -16,22 +17,35 @@ import { InboxService } from '../../services/inbox-service';
 })
 export class InboxPage implements OnInit {
   private readonly router = inject(Router);
-  protected readonly service = inject(InboxService);
+  protected readonly inboxService = inject(InboxService);
+  private readonly currentBusinessService = inject(CurrentBusinessService);
 
   protected readonly searchQuery = signal('');
   protected readonly activeFilter = signal(InboxFilter.All);
 
   protected readonly chatOpen = signal(false);
 
+  constructor() {
+    let previousBusinessId = this.currentBusinessService.selectedId();
+
+    effect(() => {
+      const businessId = this.currentBusinessService.selectedId();
+      if (businessId === previousBusinessId) return;
+
+      previousBusinessId = businessId;
+      this.router.navigate(['/', APP_ROUTES.inbox]); // leave the old business's chat
+    });
+  }
+
   ngOnInit() {
-    this.service.load();
+    this.inboxService.load();
   }
 
   protected readonly visibleConversations = computed(() => {
     const query = this.searchQuery().trim().toLowerCase();
     const filter = this.activeFilter();
 
-    return this.service
+    return this.inboxService
       .conversations()
       .filter((c) => this.matchesFilter(c, filter) && this.matchesQuery(c, query));
   });

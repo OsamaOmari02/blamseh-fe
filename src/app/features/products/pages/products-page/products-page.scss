@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.products {
+  &__search {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.5rem 1rem;
+    background: var(--color-surface);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); // as many columns as fit
+    gap: 0.75rem;
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  &__status {
+    grid-column: 1 / -1; // the message spans the whole grid
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+}

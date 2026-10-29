@@ -5,4 +5,5 @@ export interface Conversation {
   lastMessageAt: Date;
   unreadCount: number;
   assignedToMe: boolean;
+  businessId: string;
 }

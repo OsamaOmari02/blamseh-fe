@@ -1,0 +1,34 @@
+<app-page-header [title]="product()?.name ?? 'Product'" (back)="goBack()" />
+
+<main class="detail">
+  @if (productsService.loading()) {
+    <p class="detail__status">Loading...</p>
+  } @else {
+    @let current = product();
+
+    @if (current) {
+      <div class="detail__image" aria-hidden="true">{{ current.name.charAt(0).toUpperCase() }}</div>
+
+      <section class="detail__summary">
+        <span class="detail__category">{{ current.category }}</span>
+        <h2 class="detail__name">{{ current.name }}</h2>
+        <span class="detail__price">{{ current.price | currency }}</span>
+        <span class="detail__stock" [attr.data-level]="stockLevel()">{{ stockLabel() }}</span>
+        <p class="detail__description">{{ current.description }}</p>
+      </section>
+
+      <dl class="detail__list">
+        <div class="detail__row">
+          <dt>Category</dt>
+          <dd>{{ current.category }}</dd>
+        </div>
+        <div class="detail__row">
+          <dt>Units in stock</dt>
+          <dd>{{ current.stock }}</dd>
+        </div>
+      </dl>
+    } @else {
+      <p class="detail__status">Product not found</p>
+    }
+  }
+</main>

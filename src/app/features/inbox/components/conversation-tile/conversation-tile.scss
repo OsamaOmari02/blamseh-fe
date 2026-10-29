@@ -12,7 +12,11 @@
   cursor: pointer;
 
   &:hover {
-    background: var(--color-bg);
+    background: var(--color-hover);
+  }
+
+  &--active {
+    background: var(--color-selected);
   }
 
   &__body {

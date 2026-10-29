@@ -1,4 +1,4 @@
-import { Component, ElementRef, effect, inject, input, viewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, effect, inject, input, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { APP_ROUTES } from '@core/constants/app-routes';
 import { ChatHeader } from '../../components/chat-header/chat-header';
@@ -20,6 +20,7 @@ export class ChatPage {
   private readonly scroller = viewChild<ElementRef<HTMLElement>>('scroller');
 
   constructor() {
+    inject(DestroyRef).onDestroy(() => this.service.close());
     effect(() => this.service.open(this.id()));
 
     effect(() => {

@@ -1,5 +1,9 @@
-<div class="login">
-  <h1 class="login__title">Welcome back</h1>
-  <p class="login__subtitle">Sign in to continue</p>
-  <app-login-form [loading]="loading()" [error]="error()" (submitted)="onLogin($event)" />
-</div>
+<main class="login">
+  <div class="login__card">
+    <div class="login__brand" aria-hidden="true">B</div>
+
+    <app-login-form [loading]="loading()" [error]="error()" (submitted)="login($event)" />
+
+    <p class="login__hint">Demo: demo&#64;blamseh.com / 123456</p>
+  </div>
+</main>

@@ -1,4 +1,5 @@
-import { computed, Service, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
+import { ConversationStoreService } from '@core/services/conversation-store-servce';
 import { minutesAgo } from '@shared/minutes-ago-util';
 import { MessageStatus } from '../enums/message-status-enum';
 import { ChatThread } from '../models/chat-thread-model';
@@ -110,19 +111,24 @@ export const MOCK_THREADS: Record<string, ChatThread> = {
 @Service()
 export class ChatService {
   private readonly threads = signal<Record<string, ChatThread>>(MOCK_THREADS);
-  private readonly activeId = signal<string | null>(null);
+  private readonly storeService = inject(ConversationStoreService);
 
   readonly thread = computed(() => {
-    const id = this.activeId();
+    const id = this.storeService.activeId();
     return id ? (this.threads()[id] ?? null) : null;
   });
 
   open(conversationId: string) {
-    this.activeId.set(conversationId);
+    this.storeService.setActive(conversationId);
+    this.storeService.markAsRead(conversationId);
+  }
+
+  close() {
+    this.storeService.setActive(null);
   }
 
   send(text: string) {
-    const id = this.activeId();
+    const id = this.storeService.activeId();
     const trimmed = text.trim();
     if (!id || !trimmed) return;
 
@@ -139,5 +145,7 @@ export class ChatService {
       if (!thread) return all;
       return { ...all, [id]: { ...thread, messages: [...thread.messages, message] } };
     });
+
+    this.storeService.recordSentMessage(id, trimmed, message.sentAt);
   }
 }
