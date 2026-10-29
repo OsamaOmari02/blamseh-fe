@@ -58,6 +58,12 @@ export const routes: Routes = [
             (m) => m.ProductsPage,
           ),
       },
+      {
+        path: APP_ROUTES.profile,
+        title: 'Profile',
+        loadComponent: () =>
+          import('./features/profile/pages/profile-page/profile-page').then((m) => m.ProfilePage),
+      },
     ],
   },
 

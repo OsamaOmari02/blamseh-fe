@@ -3,4 +3,5 @@ export const APP_ROUTES = {
   inbox: 'inbox',
   agents: 'agents',
   products: 'products',
+  profile: 'profile',
 };

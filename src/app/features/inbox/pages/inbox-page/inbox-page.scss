@@ -14,6 +14,16 @@
     overflow-y: auto; // the list scrolls on its own
   }
 
+  &__retry {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--color-primary-dark);
+    color: white;
+    font: inherit;
+    cursor: pointer;
+  }
+
   &__search {
     position: sticky;
     top: 0;

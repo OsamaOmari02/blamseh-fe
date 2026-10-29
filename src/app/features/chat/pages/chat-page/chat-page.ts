@@ -30,7 +30,7 @@ export class ChatPage {
   }
 
   protected goBack() {
-    this.router.navigate(['/', APP_ROUTES.inbox]);
+    this.router.navigate(['/', APP_ROUTES.inbox], { queryParamsHandling: 'preserve' });
   }
 
   protected sendMessage(text: string) {

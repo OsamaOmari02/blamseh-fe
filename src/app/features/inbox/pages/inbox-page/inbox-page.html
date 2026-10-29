@@ -1,13 +1,17 @@
 <div class="inbox">
   <section class="inbox__list">
     <div class="inbox__search">
-      <app-search-bar placeholder="Search conversations" [(query)]="searchQuery" />
+      <app-search-bar placeholder="Search conversations" [(query)]="searchText" />
     </div>
 
-    <app-inbox-filter-bar [(active)]="activeFilter" />
-
+    <app-inbox-filter-bar [active]="activeFilter()" (activeChange)="selectFilter($event)" />
     @if (inboxService.loading()) {
       <p class="inbox__status">Loading...</p>
+    } @else if (inboxService.error()) {
+      <div class="inbox__status">
+        <p>{{ inboxService.error() }}</p>
+        <button type="button" class="inbox__retry" (click)="retry()">Try again</button>
+      </div>
     } @else {
       @for (conversation of visibleConversations(); track conversation.id) {
         <app-conversation-tile

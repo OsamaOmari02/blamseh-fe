@@ -1,0 +1,34 @@
+<section class="weather" aria-live="polite">
+  <h2 class="weather__branch">{{ branch().name }}</h2>
+  <p class="weather__city">{{ branch().city }}</p>
+
+  @let current = view();
+
+  @if (current.kind === 'loading') {
+    <p class="weather__status">Loading weather...</p>
+  } @else if (current.kind === 'error') {
+    <div class="weather__status">
+      <p>{{ current.message }}</p>
+      <button type="button" class="weather__retry" (click)="retry()">Try again</button>
+    </div>
+  } @else if (current.kind === 'not-found') {
+    <p class="weather__status">We couldn't find this city, so there's no weather to show.</p>
+  } @else {
+    <div class="weather__main">
+      <span class="weather__temp">{{ current.temperature }}°C</span>
+      <span class="weather__desc">{{ current.description }}</span>
+    </div>
+
+    <div class="weather__row">
+      <span>Local time</span>
+      <strong>{{ current.time }}</strong>
+    </div>
+
+    <div class="weather__row">
+      <span>{{ current.hoursLabel }}</span>
+      <span class="weather__badge" [class.weather__badge--open]="current.open">
+        {{ current.open ? 'Open now' : 'Closed' }}
+      </span>
+    </div>
+  }
+</section>
