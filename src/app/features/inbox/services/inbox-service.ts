@@ -1,5 +1,5 @@
 import { inject, Service, signal } from '@angular/core';
-import { ConversationStoreService } from '@core/services/conversation-store-servce';
+import { ConversationStoreService } from '@core/services/conversation-store-service';
 import { ConversationRepository } from '@data/conversation-repository';
 
 @Service()

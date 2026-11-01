@@ -1,0 +1,8 @@
+<ul class="hours">
+  @for (row of rows(); track row.day) {
+    <li class="hours__row">
+      <span>{{ row.day }}</span>
+      <span class="hours__time" [class.hours__time--closed]="row.closed">{{ row.label }}</span>
+    </li>
+  }
+</ul>

@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.hours {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__time {
+    font-weight: 600;
+
+    &--closed {
+      color: var(--color-error);
+    }
+  }
+}

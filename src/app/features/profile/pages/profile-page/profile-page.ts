@@ -1,11 +1,12 @@
 import { Component, inject, linkedSignal } from '@angular/core';
+import { BranchHours } from '@features/profile/components/branch-hours/branch-hours';
 import { Branch } from '@shared/models/branch-model';
 import { BranchWeather } from '../../components/branch-weather/branch-weather';
 import { BranchesService } from '../../services/branches-service';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [BranchWeather],
+  imports: [BranchWeather, BranchHours],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.scss',
 })

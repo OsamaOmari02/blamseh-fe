@@ -1,4 +1,9 @@
 import {
+  CdkFixedSizeVirtualScroll,
+  CdkVirtualForOf,
+  CdkVirtualScrollViewport,
+} from '@angular/cdk/scrolling';
+import {
   Component,
   OnInit,
   computed,
@@ -7,6 +12,7 @@ import {
   input,
   linkedSignal,
   signal,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { Router, RouterOutlet } from '@angular/router';
@@ -15,14 +21,25 @@ import { CurrentBusinessService } from '@core/services/current-business-service'
 import { SearchBar } from '@shared/components/search-bar/search-bar';
 import { Conversation } from '@shared/models/conversation-model';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs';
-import { ConversationTile } from '../../components/conversation-tile/conversation-tile';
+import {
+  CONVERSATION_TILE_HEIGHT,
+  ConversationTile,
+} from '../../components/conversation-tile/conversation-tile';
 import { InboxFilterBar } from '../../components/inbox-filter-bar/inbox-filter-bar';
 import { InboxFilter, parseInboxFilter } from '../../enums/inbox-filter-enum';
 import { InboxService } from '../../services/inbox-service';
 
 @Component({
   selector: 'app-inbox-page',
-  imports: [SearchBar, InboxFilterBar, ConversationTile, RouterOutlet],
+  imports: [
+    SearchBar,
+    InboxFilterBar,
+    ConversationTile,
+    RouterOutlet,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+  ],
   templateUrl: './inbox-page.html',
   styleUrl: './inbox-page.scss',
 })
@@ -30,6 +47,11 @@ export class InboxPage implements OnInit {
   private readonly router = inject(Router);
   private readonly currentBusiness = inject(CurrentBusinessService);
   protected readonly inboxService = inject(InboxService);
+
+  protected readonly tileHeight = CONVERSATION_TILE_HEIGHT;
+  private readonly viewport = viewChild(CdkVirtualScrollViewport);
+
+  protected readonly trackById = (_: number, conversation: Conversation) => conversation.id;
 
   // URL state: Angular fills these from ?q=...&filter=...
   readonly q = input<string>();
@@ -78,6 +100,13 @@ export class InboxPage implements OnInit {
 
       previousBusinessId = businessId;
       this.router.navigate(['/', APP_ROUTES.inbox], { queryParamsHandling: 'preserve' });
+    });
+
+    // a new search or filter should start from the top of the new result list
+    effect(() => {
+      this.searchQuery();
+      this.activeFilter();
+      this.viewport()?.scrollToIndex(0);
     });
   }
 

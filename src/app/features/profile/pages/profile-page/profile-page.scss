@@ -43,4 +43,46 @@
     text-align: center;
     color: var(--color-text-muted);
   }
+
+  &__section {
+    margin-bottom: 1.25rem;
+  }
+
+  &__heading {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+  }
+
+  &__reveal {
+    padding: 0.6rem 1rem;
+    border: 1px dashed var(--color-border);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-primary-dark);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  &__skeleton {
+    min-height: 12rem; // roughly the real card's height, so the page doesn't jump
+    border-radius: 0.75rem;
+    background: var(--color-border);
+
+    &--pulse {
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile__skeleton--pulse {
+    animation: none;
+  }
 }

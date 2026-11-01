@@ -1,5 +1,5 @@
 import { computed, inject, Service, signal } from '@angular/core';
-import { ConversationStoreService } from '@core/services/conversation-store-servce';
+import { ConversationStoreService } from '@core/services/conversation-store-service';
 import { minutesAgo } from '@shared/minutes-ago-util';
 import { MessageStatus } from '../enums/message-status-enum';
 import { ChatThread } from '../models/chat-thread-model';
@@ -115,7 +115,7 @@ export class ChatService {
 
   readonly thread = computed(() => {
     const id = this.storeService.activeId();
-    return id ? (this.threads()[id] ?? null) : null;
+    return id ? this.threadFor(id) : null;
   });
 
   open(conversationId: string) {
@@ -132,6 +132,9 @@ export class ChatService {
     const trimmed = text.trim();
     if (!id || !trimmed) return;
 
+    const current = this.threadFor(id);
+    if (!current) return;
+
     const message: Message = {
       id: crypto.randomUUID(),
       text: trimmed,
@@ -140,12 +143,19 @@ export class ChatService {
       status: MessageStatus.Sent,
     };
 
-    this.threads.update((all) => {
-      const thread = all[id];
-      if (!thread) return all;
-      return { ...all, [id]: { ...thread, messages: [...thread.messages, message] } };
-    });
+    this.threads.update((all) => ({
+      ...all,
+      [id]: { ...current, messages: [...current.messages, message] },
+    }));
 
     this.storeService.recordSentMessage(id, trimmed, message.sentAt);
+  }
+
+  private threadFor(id: string): ChatThread | null {
+    const saved = this.threads()[id];
+    if (saved) return saved;
+
+    const conversation = this.storeService.findById(id);
+    return conversation ? { contactName: conversation.contactName, messages: [] } : null;
   }
 }

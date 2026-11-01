@@ -37,6 +37,10 @@ export class ConversationStoreService {
     this.patch(id, { lastMessage: text, lastMessageAt: sentAt });
   }
 
+  findById(id: string): Conversation | undefined {
+    return this.ConversationsState().find((conversation) => conversation.id === id);
+  }
+
   private patch(id: string, changes: Partial<Conversation>) {
     this.ConversationsState.update((all) =>
       all.map((c) => (c.id === id ? { ...c, ...changes } : c)),

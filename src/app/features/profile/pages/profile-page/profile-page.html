@@ -18,7 +18,31 @@
   @let selected = selectedBranch();
 
   @if (selected) {
-    <app-branch-weather [branch]="selected" />
+    <section class="profile__section">
+      <h2 class="profile__heading">Opening hours</h2>
+
+      @defer (on interaction) {
+        <app-branch-hours [hours]="selected.hours" />
+      } @placeholder {
+        <button type="button" class="profile__reveal">Show opening hours</button>
+      }
+    </section>
+
+    <section class="profile__section">
+      <h2 class="profile__heading">Weather and status</h2>
+
+      @defer (on viewport; prefetch on idle) {
+        <app-branch-weather [branch]="selected" />
+      } @placeholder {
+        <div class="profile__skeleton" aria-hidden="true"></div>
+      } @loading (after 150ms; minimum 400ms) {
+        <div class="profile__skeleton profile__skeleton--pulse" aria-hidden="true"></div>
+      } @error {
+        <p class="profile__empty">
+          Couldn't load the weather card. Check your connection and reload.
+        </p>
+      }
+    </section>
   } @else {
     <p class="profile__empty">This business has no branches yet.</p>
   }

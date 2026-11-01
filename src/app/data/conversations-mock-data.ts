@@ -1,7 +1,8 @@
 import { minutesAgo } from '@shared/minutes-ago-util';
 import { Conversation } from '@shared/models/conversation-model';
+import { generateConversations } from './conversations-generator';
 
-export const MOCK_CONVERSATIONS: Conversation[] = [
+const HAND_WRITTEN_CONVERSATIONS: Conversation[] = [
   {
     id: '1',
     contactName: 'Sara Khalil',
@@ -47,4 +48,8 @@ export const MOCK_CONVERSATIONS: Conversation[] = [
     assignedToMe: false,
     businessId: 'b2',
   },
+];
+export const MOCK_CONVERSATIONS: Conversation[] = [
+  ...HAND_WRITTEN_CONVERSATIONS,
+  ...generateConversations(2000),
 ];
